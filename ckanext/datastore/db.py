@@ -101,6 +101,8 @@ def _is_valid_table_name(name):
 def _get_engine(data_dict):
     '''Get either read or write engine.'''
     connection_url = data_dict['connection_url']
+    # New line
+    log.info("URL LEIDA"+connection_url)
     engine = _engines.get(connection_url)
 
     if not engine:
