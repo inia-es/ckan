@@ -1,0 +1,5 @@
+#La version de httpretty (version 0.8.3) que viene por defecto en CKAN importa "urllib3 1.19", pero existe una nueva libreria llamada #"request"  que necesita de "urllib3 >1.20" por lo tanto se debe instalar una nueva version de httpretty.
+urllib3==1.21.1
+#httpretty==0.8.14
+#otras librerias
+
