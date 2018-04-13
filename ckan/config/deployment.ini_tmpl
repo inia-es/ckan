@@ -45,10 +45,15 @@ who.log_file = %(cache_dir)s/who_log.ini
 # who.timeout = 86400
 
 ## Database Settings
-sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default
+#sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default
 
 #ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default
 #ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_default
+
+#New lines from Fernando deployment
+
+#ckan.datastore.write_url = postgresql://localhost:5432/datastore_default
+#ckan.datastore.read_url = postgresql://localhost:5432/datastore_default
 
 # PostgreSQL' full-text search parameters
 ckan.datastore.default_fts_lang = english
@@ -64,7 +69,7 @@ ckan.site_url =
 ckan.auth.anon_create_dataset = false
 ckan.auth.create_unowned_dataset = false
 ckan.auth.create_dataset_if_not_in_organization = false
-ckan.auth.user_create_groups = false
+ckan.auth.user_create_groups = true
 ckan.auth.user_create_organizations = false
 ckan.auth.user_delete_groups = true
 ckan.auth.user_delete_organizations = true
@@ -100,11 +105,29 @@ ckan.site_id = default
 #       Add ``datapusher`` to enable DataPusher
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_view image_view recline_view
+ckan.plugins = stats text_view image_view recline_view datastore  linechart barchart piechart basicgrid scheming_datasets repeating hierarchy_display hierarchy_form predataset recordviewer gallery quality ldap
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
 ckan.views.default_views = image_view text_view recline_view
+
+#**** Scheming Extensions *****# 
+
+#   module-path:file to schemas being used 
+
+#if squema is in the ckanext/scheming directory (Default)
+scheming.dataset_schemas = ckanext.scheming:inia_schema.json 
+
+#if squema is in a external file server (recomended) 
+#scheming.dataset_schemas = http://172.17.0.6:19000/esquemas/myschema.json 
+
+#   Preset files may be included as well. The default preset setting is: 
+scheming.presets = 	ckanext.scheming:presets.json 
+			ckanext.repeating:presets.json 
+
+#   The is_fallback setting may be changed as well. Defaults to false: 
+scheming.dataset_fallback = false 
+
 
 # Customize which text formats the text_view plugin will show
 #ckan.preview.json_formats = json
@@ -158,7 +181,7 @@ ckan.feeds.author_link =
 # Make sure you have set up the DataStore
 
 #ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-#ckan.datapusher.url = http://127.0.0.1:8800/
+#ckan.datapusher.url = http://localhost:8800/
 
 # Resource Proxy settings
 # Preview size limit, default: 1MB
@@ -174,6 +197,15 @@ ckan.feeds.author_link =
 #ckan.email_notifications_since = 2 days
 ckan.hide_activity_from_users = %(ckan.site_id)s
 
+
+## LDAP extension
+ckanext.ldap.uri = ldap://linkeddata.dia.fi.upm.es
+ckanext.ldap.base_dn = ou=People,dc=linkeddata,dc=es
+ckanext.ldap.search.filter = uid={login}
+ckanext.ldap.username = uid
+#ckanext.ldap.username = sAMAccountName
+ckanext.ldap.email = mail
+ldap.ckan_fallback = True
 
 ## Email settings
 
