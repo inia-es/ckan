@@ -277,6 +277,9 @@ a:focus {
 .span4 {
   width: 300px;
 }
+.span35 {
+  width: 295px;
+}
 .span3 {
   width: 220px;
 }
@@ -7149,6 +7152,30 @@ textarea {
 .label[data-format*=turtle] {
   background-color: #0b4498;
 }
+.quality_label{
+  background-color: #5A5A5A;
+  -webkit-border-radius: 3px 0px 0px 3px;
+  -moz-border-radius: 3px 0px 0px 3px;
+  border-radius: 3px 0px 0px 3px;
+}
+.quality_label[quality=bad]{
+  background-color: #9B9B9B;
+  -webkit-border-radius: 0px 3px 3px 0px;
+  -moz-border-radius: 0px 3px 3px 0px;
+  border-radius: 0px 3px 3px 0px;
+}
+.quality_label[quality=regular]{
+  background-color: #D7B033;
+  -webkit-border-radius: 0px 3px 3px 0px;
+  -moz-border-radius: 0px 3px 3px 0px;
+  border-radius: 0px 3px 3px 0px; 
+}
+.quality_label[quality=good]{
+  background-color: #92BD27;
+  -webkit-border-radius: 0px 3px 3px 0px;
+  -moz-border-radius: 0px 3px 3px 0px;
+  border-radius: 0px 3px 3px 0px;
+}
 .view-list {
   margin: 0;
   list-style: none;
@@ -8242,11 +8269,13 @@ h4 small {
 .homepage .row {
   position: relative;
 }
+.homepage .module-search-background{
+  background: url('../../../base/images/search_map_bg.jpg') no-repeat center center !important;
+}
 .homepage .module-search {
   padding: 5px;
   margin: 20px 0 0 0;
   color: #ffffff;
-  background: #ffffff;
 }
 .homepage .module-search .search-giant {
   margin-bottom: 10px;
@@ -8258,7 +8287,7 @@ h4 small {
   -webkit-border-radius: 3px 3px 0 0;
   -moz-border-radius: 3px 3px 0 0;
   border-radius: 3px 3px 0 0;
-  background-color: #2f9b45;
+
   border-bottom: none;
 }
 .homepage .module-search .module-content .heading {
@@ -9341,4 +9370,40 @@ iframe {
 .ie8 .lang-dropdown {
   position: relative !important;
   top: -90px !important;
+}
+.action-box .module-content {
+  background: #228900;
+  color: #fff;
+  padding-top: 20px;
+}
+.action-box .module-content a {
+  color: #fff;
+}
+.action-box .module-content a:hover {
+  color: #BBEDA9;
+  text-decoration: none!important;
+}
+.action-box i.large {
+  float: left;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+}
+.action-box .content {
+#  margin-left: 45px;
+}
+.action-box h4 {
+  margin-bottom: 5px;
+}
+.action-box p.text-right {
+  margin-top: 20px;
+}
+.i-search{
+  background: url('../../../base/images/search-icon.png') no-repeat top left !important;
+}
+.i-download{
+  background: url('../../../base/images/search-down.png') no-repeat center center !important;
+}
+.i-citacion{
+  background: url('../../../base/images/search-cita.png') no-repeat center center !important;
 }

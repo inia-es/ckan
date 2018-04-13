@@ -8307,6 +8307,42 @@ h4 small {
 .homepage .box .inner {
   padding: 20px 25px;
 }
+.homepage .newstats {
+  text-align: right;
+}
+.homepage .newstats ul {
+  margin: 0;
+  list-style: none;
+  *zoom: 1;
+}
+.homepage .newstats ul:before,
+.homepage .newstats ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.homepage .newstats ul:after {
+  clear: both;
+}
+.homepage .newstats ul li {
+  float: left;
+  width: 25%;
+  font-weight: 300;
+}
+.homepage .newstats ul li a {
+  display: block;
+}
+.homepage .newstats ul li a b {
+  display: block;
+  font-size: 35px;
+  line-height: 1.5;
+}
+.homepage .newstats ul li a:hover {
+  text-decoration: none;
+}
+.homepage.layout-2 .newstats {
+  margin-top: 20px;
+}
 .homepage .stats h3 {
   margin: 0 0 10px 0;
 }

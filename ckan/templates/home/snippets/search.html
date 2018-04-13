@@ -1,7 +1,7 @@
 {% set tags = h.get_facet_items_dict('tags', limit=3) %}
 {% set placeholder = _('E.g. environment') %}
 
-<div class="module module-search module-narrow module-shallow box">
+<div class="module module-search module-search-background module-narrow module-shallow box">
   <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
     <h3 class="heading">{{ _("Search data") }}</h3>
     <div class="search-input control-group search-giant">
@@ -12,6 +12,8 @@
       </button>
     </div>
   </form>
+</div>
+<div class="module module-search module-narrow module-shallow " style="margin: 0px 0 0 0;">
   <div class="tags">
     <h3>{{ _('Popular tags') }}</h3>
     {% for tag in tags %}

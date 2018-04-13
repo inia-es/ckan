@@ -1,23 +1,56 @@
-<div role="main" class="hero">
+<div role="main" >
   <div class="container">
+<h1>Texto inicial de introducción del portal</h1>
     {% block search %}
       {% snippet 'home/snippets/search.html' %}
     {% endblock %}
+    {% block statarriba %}
+      {% snippet 'home/snippets/newstats.html' %}
+    {% endblock %}
+		
   </div>
 </div>
+
+<!-- featured -->
 <div role="main">
-  <div class="container">
-    <div class="row row2">
-      <div class="span6 col2">
-        {% block promoted %}
-          {% snippet 'home/snippets/promoted.html' %}
-        {% endblock %}
-      </div>
-      <div class="span6 col1">
-        {% block stats %}
-          {% snippet 'home/snippets/stats.html' %}
-        {% endblock %}
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h3>Feautured datasets</h3>
+				<div class="row">
+
+							  {% snippet 'home/snippets/featured/dataset1.html' %}
+							  {% snippet 'home/snippets/featured/dataset2.html' %}
+							  {% snippet 'home/snippets/featured/dataset3.html' %}
+					
+
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
+
+
+<!-- Actions -->
+<div role="main">
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<h3>Feautured actions</h3>
+			<div class="row">
+
+				{% snippet 'home/snippets/actions/action1.html' %}
+				{% snippet 'home/snippets/actions/action2.html' %}
+				{% snippet 'home/snippets/actions/action3.html' %}
+
+				
+
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
+
