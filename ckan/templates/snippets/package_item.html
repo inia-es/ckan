@@ -17,6 +17,11 @@ Example:
 {% set truncate_title = truncate_title or 80 %}
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+{% if package.quality != '' %}
+  {% set quality = package.quality[0][1:-1].replace("'",'').split(',') %}
+{% else %} 
+  {% set quality = [] %}  
+{% endif %} 
 
 {% block package_item %}
   <li class="{{ item_class or "dataset-item" }}">
@@ -42,6 +47,63 @@ Example:
                 <span class="label label-important">{{ _('Deleted') }}</span>
               {% endif %}
               {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+            {% endblock %}
+            {% block quality_options %}
+	      <span style="display:inline-block;">
+                {% for result in quality %}
+                   {% set token = result.replace(" ","").split(':') %}
+                   {% if token.__len__() > 1 %}
+                     {% if "core"  == token[0] %}
+                       <ul style="font-size: 0;display:inline-block;">
+                         <li style="display:inline-block;"><span class="label quality_label">{{ token[0] }}</span></li>
+                         {% if token[1] >= "0" and token[1] <= "4" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="bad">{{ token[1] }}/15</span></li>
+                         {% elif token[1] >= "5" and token[1] <= "8" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="regular">{{ token[1] }}/15</span></li>
+                         {% elif token[1] >= "9" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="good">{{ token[1] }}/15</span></li>
+                         {% endif %}
+                       </ul>
+                     {% endif %}
+                     {% if "legal"  == token[0] %}
+                       <ul style="font-size: 0;display:inline-block;">
+                         <li style="display:inline-block;"><span class="label quality_label">{{ token[0] }}</span></li>
+                         {% if token[1] >= "0" and token[1] <= "2" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="bad">{{ token[1] }}/7</span></li>
+                         {% elif token[1] >= "3" and token[1] <= "4" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="regular">{{ token[1] }}/7</span></li>
+                         {% elif token[1] >= "5" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="good">{{ token[1] }}/7</span></li>
+                         {% endif %}
+                       </ul>
+                     {% endif %}
+                     {% if "practico"  == token[0] %}
+                       <ul style="font-size: 0;display:inline-block;">
+                         <li style="display:inline-block;"><span class="label quality_label">{{ token[0] }}</span></li>
+                         {% if token[1] >= "0" and token[1] <= "4" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="bad">{{ token[1] }}/14</span></li>
+                         {% elif token[1] >= "5" and token[1] <= "8" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="regular">{{ token[1] }}/14</span></li>
+                         {% elif token[1] >= "9" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="good">{{ token[1] }}/14</span></li>
+                         {% endif %}
+                       </ul>
+                     {% endif %}
+                     {% if "social"  == token[0] %}
+                       <ul style="font-size: 0;display:inline-block;">
+                         <li style="display:inline-block;"><span class="label quality_label">{{ token[0] }}</span></li>
+                         {% if token[1] >= "0" and token[1] <= "2" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="bad">{{ token[1] }}/8</span></li>
+                         {% elif token[1] >= "3" and token[1] <= "5" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="regular">{{ token[1] }}/8</span></li>
+                         {% elif token[1] >= "6" %}
+                           <li style="display:inline-block;"><span class="label quality_label" quality="good">{{ token[1] }}/8</span></li>
+                         {% endif %}
+                       </ul>
+                     {% endif %}
+                   {% endif %}
+                {% endfor %}
+              </span>
             {% endblock %}
           </h3>
         {% endblock %}
@@ -73,6 +135,8 @@ Example:
           {% endblock %}
         {% endif %}
       {% endblock %}
+      {% block quality %}
+      {% endblock %} 
     {% endblock %}
   </li>
 {% endblock %}
