@@ -9,12 +9,27 @@ ENV CKAN_STORAGE_PATH /var/lib/ckan
 ENV CKAN_SITE_URL http://localhost:5000
 
 # Install required packages
+RUN apt-get update
+
 RUN apt-get -q -y update && apt-get -q -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
-		python-dev \
+        python-dev \
         python-pip \
         python-virtualenv \
         libpq-dev \
         git-core \
+        nginx \
+        apache2 \
+        libapache2-mod-rpaf \
+        libapache2-mod-wsgi \
+        nano \
+        build-essential \
+        libxslt1-dev \
+        libxml2-dev \
+        zlib1g-dev \
+        git \
+	libldap2-dev \
+	libsasl2-dev \
+	libssl-dev \
 	&& apt-get -q clean
 
 # SetUp Virtual Environment CKAN
@@ -36,6 +51,23 @@ ADD . $CKAN_HOME/src/ckan/
 RUN ckan-pip install -e $CKAN_HOME/src/ckan/
 RUN ln -s $CKAN_HOME/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini
 
+# Install and config DataPusher
+
+COPY ./ckanext/datapusher/install_datapusher.sh /
+RUN chmod +x /install_datapusher.sh
+RUN ./install_datapusher.sh
+COPY ./ckanext/datapusher/datapusher.conf /etc/apache2/sites-available/
+
+# Install INIA extensions
+COPY ./ckanext/install_inia_extensions.sh /
+RUN chmod +x /install_inia_extensions.sh
+RUN ./install_inia_extensions.sh
+
+
+#*** OEG - Install New requirements - OEG ***#
+ADD ./inia/inia-requirements.txt $CKAN_HOME/src/ckan/inia-requirements.txt
+RUN ckan-pip install --upgrade -r $CKAN_HOME/src/ckan/inia-requirements.txt 
+
 # SetUp EntryPoint
 COPY ./contrib/docker/ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh
@@ -44,6 +76,10 @@ ENTRYPOINT ["/ckan-entrypoint.sh"]
 # Volumes
 VOLUME ["/etc/ckan/default"]
 VOLUME ["/var/lib/ckan"]
-EXPOSE 5000
+EXPOSE 5000 8800
 
-CMD ["ckan-paster","serve","/etc/ckan/default/ckan.ini"]
+COPY /start_ckan.sh /
+RUN chmod +x /start_ckan.sh
+CMD ["/start_ckan.sh"]
+
+#CMD ["ckan-paster","serve","/etc/ckan/default/ckan.ini"]
