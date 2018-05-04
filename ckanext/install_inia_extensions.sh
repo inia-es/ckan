@@ -8,8 +8,8 @@ cd /usr/lib/ckan/default/src
 
 git clone https://github.com/ckan/ckanext-basiccharts.git
 git clone https://github.com/fernandobac03/ckanext-gallery-inia.git 
-git clone https://github.com/fernandobac03/ckanext-scheming.git
-git clone https://github.com/fernandobac03/ckanext-repeating.git
+git clone https://github.com/inia-es/ckanext-scheming.git
+git clone https://github.com/inia-es/ckanext-repeating.git
 git clone https://github.com/inia-es/ckanext-predataset.git
 git clone https://github.com/fernandobac03/ckanext-recordviewer.git 
 git clone https://github.com/NaturalHistoryMuseum/ckanext-ldap.git
