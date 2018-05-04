@@ -18,7 +18,7 @@ Example:
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
 {% if package.quality != '' %}
-  {% set quality =(package.quality|string)[1:-1].replace("'",'').split(',') %}
+  {% set quality = (package.quality|string)[2:-1].replace("'","").split(",") %}
 {% else %} 
   {% set quality = [] %}  
 {% endif %} 
