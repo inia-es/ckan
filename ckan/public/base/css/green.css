@@ -8270,7 +8270,8 @@ h4 small {
   position: relative;
 }
 .homepage .module-search-background{
-  background: url('../../../base/images/search_map_bg.jpg') no-repeat center center !important;
+  background: url('../../../base/images/inia-background.jpg') no-repeat center center;
+  background-size: cover;
 }
 .homepage .module-search {
   padding: 5px;
