@@ -14,7 +14,7 @@
 [DEFAULT]
 
 # WARNING: *THIS SETTING MUST BE SET TO FALSE ON A PRODUCTION ENVIRONMENT*
-debug = false
+debug = true
 
 [server:main]
 use = egg:Paste#http
@@ -105,7 +105,7 @@ ckan.site_id = default
 #       Add ``datapusher`` to enable DataPusher
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
-ckan.plugins = stats text_view image_view recline_view datastore datapusher linechart barchart piechart basicgrid scheming_datasets repeating hierarchy_display hierarchy_form predataset recordviewer gallery quality ldap
+ckan.plugins = stats text_view image_view recline_view datastore datapusher linechart barchart piechart basicgrid scheming_datasets repeating hierarchy_display hierarchy_form predataset recordviewer gallery quality ldap pages
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
