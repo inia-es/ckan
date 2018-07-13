@@ -20,6 +20,7 @@ source /usr/lib/ckan/default/bin/activate
 
 #pip install git+https://github.com/NaturalHistoryMuseum/ckanext-userdatasets#egg=ckanext-userdatasets
 pip install -e "git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy"
+pip install -e 'git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages'
 
 #Install private datasets
 #pip install ckanext-privatedatasets
