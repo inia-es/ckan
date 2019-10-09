@@ -1,7 +1,7 @@
 ﻿{% extends "home/snippets/actions/base.html" %}
 
-{% set title = "Action 3" %}
+{% set title = _('Cite') %}
 {% set icon_path = "../../../base/images/cita-icon.png" %}
-{% set text = "Texto para la acción tres de las tres que se muestran" %}
-{% set link_text = "Texto del link 3" %}
-{% set url = h.url_for('about') %}
+{% set text = _('Reference Redia data in your research with the dataset DOI') %}
+{% set link_text = _('How to Cite') %}
+{% set url = h.url_for('/pages/cite') %}
