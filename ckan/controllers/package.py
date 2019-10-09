@@ -26,6 +26,9 @@ import ckan.lib.render
 from ckan.common import OrderedDict, _, json, request, c, response
 from home import CACHE_PARAMETERS
 
+import os
+
+
 log = logging.getLogger(__name__)
 
 render = base.render
@@ -63,6 +66,9 @@ def search_url(params, package_type=None):
 
 
 class PackageController(base.BaseController):
+
+
+    quality_dictionary = {}
 
     def _package_form(self, package_type=None):
         return lookup_package_plugin(package_type).package_form()
@@ -738,6 +744,8 @@ class PackageController(base.BaseController):
                    'user': c.user, 'auth_user_obj': c.userobj,
                    'save': 'save' in request.params}
 
+        log.info('Paso de edicion dataset')
+        log.debug('Contexto %r',context)
         if context['save'] and not data:
             return self._save_edit(id, context, package_type=package_type)
         try:
@@ -746,6 +754,7 @@ class PackageController(base.BaseController):
                                                     {'id': id})
             context['for_edit'] = True
             old_data = get_action('package_show')(context, {'id': id})
+            log.debug("Old data %r",old_data)
             # old data is from the database and data is passed from the
             # user if there is a validation error. Use users data if there.
             if data:
@@ -767,6 +776,8 @@ class PackageController(base.BaseController):
             check_access('package_update', context)
         except NotAuthorized:
             abort(403, _('User %r not authorized to edit %s') % (c.user, id))
+        log.info("Calculo calidad en funcion edit")
+        data['quality'] = self.get_quality(data)
         # convert tags if not supplied in data
         if data and not data.get('tag_string'):
             data['tag_string'] = ', '.join(h.dict_list_reduce(
@@ -868,6 +879,10 @@ class PackageController(base.BaseController):
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
+
+            log.info("Calculo de la calidad en funcion save new")
+            data_dict['quality'] = self.get_quality(data_dict)
+
             if ckan_phase:
                 # prevent clearing of groups etc
                 context['allow_partial_update'] = True
@@ -948,6 +963,12 @@ class PackageController(base.BaseController):
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
+
+            log.info("Calculo de la calidad en funcion save edit")
+            del data_dict['quality']
+            data_dict['quality'] = self.get_quality(data_dict)
+            #data_dict['notes'] = data_dict
+
             if '_ckan_phase' in data_dict:
                 # we allow partial updates to not destroy existing resources
                 context['allow_partial_update'] = True
@@ -1590,3 +1611,42 @@ class PackageController(base.BaseController):
         else:
             return render(preview_plugin.preview_template(context, data_dict),
                           extra_vars={'dataset_type': dataset_type})
+    def get_quality(self, data):
+     ##CALCULANDO LA CALIDAD DE LOS DATOS
+            total = 0
+            metadatosingresados = 0
+            if not self.quality_dictionary:
+                with open(os.path.dirname(os.path.abspath(__file__))+'/quality.json', 'r') as f:
+                        self.quality_dictionary = eval(f.read())
+            q_metadata = []
+            quality_metadata = {}
+            quality_metadata["core"]=0
+            quality_metadata["legal"]=0
+            quality_metadata["practico"]=0
+            quality_metadata["social"]=0
+
+            for metadata in data:
+                log.info(metadata)
+                if not 'subfield' in metadata:
+                        log.info("Subfield")
+                        total = total + 1
+                        if (not data[metadata]==''):
+                                metadatosingresados=metadatosingresados+1
+                                if metadata in self.quality_dictionary:
+                                        if self.quality_dictionary[metadata] in quality_metadata:
+                                                quality_metadata[self.quality_dictionary[metadata]]+=1
+                                        else:
+                                                quality_metadata[self.quality_dictionary[metadata]] = 1
+                                else:
+                                        log.error("Metadata "+metadata+" is not present in the quality dictionary")
+
+            quality_metadata["total"] = total
+            result =[]
+
+            #result.append("{"+"\"core\":"+str(quality_metadata["core"])+"}")
+            result.append(quality_metadata["core"])
+            result.append(quality_metadata["legal"])
+            result.append(quality_metadata["practico"])
+            result.append(quality_metadata["social"])
+
+            return str(quality_metadata).replace('"','')
