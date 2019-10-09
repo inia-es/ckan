@@ -30,6 +30,7 @@ RUN apt-get -q -y update && apt-get -q -y upgrade && DEBIAN_FRONTEND=noninteract
 	libldap2-dev \
 	libsasl2-dev \
 	libssl-dev \
+        libffi-dev \
 	&& apt-get -q clean
 
 # SetUp Virtual Environment CKAN
