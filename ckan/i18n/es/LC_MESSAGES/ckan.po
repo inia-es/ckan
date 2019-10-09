@@ -36,6 +36,30 @@ msgstr "Editor"
 msgid "Member"
 msgstr "Miembro"
 
+#: ACTIONS
+msgid "Explore and download the REDIA (agrifood and forest repository) research and collections data"
+msgstr "Explore y descargue datos de investigación y colecciones de REDIA (repositorio agroalimentario y forestal)"
+msgid "Explore"
+msgstr "Explorar"
+msgid "Explore the REDIA Collection and research data"
+msgstr "Explora las colecciones de datos de REDIA."
+msgid "Explore the data"
+msgstr "Explora nuestros datos"                                                                                                                                          
+
+msgid "Download"
+msgstr "Descargar"
+msgid "Datasets are available for download or via API"
+msgstr "Los conjuntos de datos se encuentran disponibles para descarga directa o vía API."
+msgid "Find out more"
+msgstr "Saber más"
+
+msgid "Cite"
+msgstr "Citar"
+msgid "Reference Redia data in your research with the dataset DOI"
+msgstr "Referencia los datos REDIA en tu investigación usando su DOI."                                                                                               
+msgid "How to Cite"
+msgstr "Como citar"
+
 #: ckan/controllers/admin.py:34
 msgid "Need to be system administrator to administer"
 msgstr "Es necesario ser administrador del sistema para administrar"
